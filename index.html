@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AlumniConnect - Empowering Alumni & Student Networks</title>
+    <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      /* Initial loader styling before React mounts */
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #09090b; /* Zinc 950 */
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: #f4f4f5;
+        overflow: hidden;
+      }
+      .initial-loader {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        gap: 1.5rem;
+      }
+      .loader-logo {
+        font-family: 'Outfit', sans-serif;
+        font-size: 2.25rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.05em;
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(99, 102, 241, 0.1);
+        border-radius: 50%;
+        border-top-color: #6366f1;
+        animation: spin 1s ease-in-out infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: .5; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="initial-loader">
+        <div class="loader-logo">AlumniConnect</div>
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
