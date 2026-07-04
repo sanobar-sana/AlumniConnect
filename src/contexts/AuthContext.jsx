@@ -20,6 +20,41 @@ export const AuthProvider = ({ children }) => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const getOrCreateProfile = async (currentUser) => {
+    try {
+      let userProfile = await dbService.getProfile(currentUser.$id);
+      if (!userProfile) {
+        // Auto create if not found
+        userProfile = await dbService.createProfile(currentUser.$id, {
+          name: currentUser.name || 'User',
+          email: currentUser.email || '',
+          role: 'student', // Default fallback role
+          gradYear: (new Date().getFullYear() + 4).toString(),
+          bio: '',
+          skills: [],
+          company: '',
+          jobTitle: '',
+          major: '',
+        });
+      }
+      return userProfile;
+    } catch (err) {
+      console.warn('Could not fetch/create profile from database, using fallback profile state:', err);
+      return {
+        $id: currentUser.$id,  // fallback $id matches the real user so lookups work
+        name: currentUser.name || 'Community Member',
+        email: currentUser.email || '',
+        role: 'student',
+        gradYear: (new Date().getFullYear() + 4).toString(),
+        bio: 'Welcome to the community!',
+        skills: [],
+        company: '',
+        jobTitle: '',
+        major: '',
+      };
+    }
+  };
+
   const fetchSession = async () => {
     try {
       setLoading(true);
@@ -27,8 +62,7 @@ export const AuthProvider = ({ children }) => {
       setUser(currentUser);
       
       if (currentUser) {
-        // Fetch user profile from database
-        const userProfile = await dbService.getProfile(currentUser.$id);
+        const userProfile = await getOrCreateProfile(currentUser);
         setProfile(userProfile);
       } else {
         setProfile(null);
@@ -53,7 +87,7 @@ export const AuthProvider = ({ children }) => {
       const currentUser = await authService.getCurrentUser();
       setUser(currentUser);
       
-      const userProfile = await dbService.getProfile(currentUser.$id);
+      const userProfile = await getOrCreateProfile(currentUser);
       setProfile(userProfile);
       return currentUser;
     } catch (error) {

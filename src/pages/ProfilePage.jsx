@@ -30,7 +30,7 @@ export const ProfilePage = () => {
         skills: Array.isArray(profile.skills) ? profile.skills.join(', ') : '',
         company: profile.company || '',
         jobTitle: profile.jobTitle || '',
-        major: profile.major || '',
+        major: profile.major || profile.department || '',
         gradYear: profile.gradYear || '',
       });
     }
@@ -76,7 +76,7 @@ export const ProfilePage = () => {
     <div className="max-w-4xl mx-auto space-y-8">
       <div>
         <h2 className="text-3xl font-bold tracking-tight font-display mb-1">My Profile</h2>
-        <p className="text-zinc-500 dark:text-zinc-400">Manage your educational information, career summary, and expertise.</p>
+        <p className="text-gray-700 dark:text-gray-300">Manage your educational information, career summary, and expertise.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -88,12 +88,12 @@ export const ProfilePage = () => {
                 {formData.name ? formData.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2) : '?'}
               </div>
               <h3 className="font-bold text-lg">{formData.name || 'Anonymous User'}</h3>
-              <p className="text-xs text-zinc-400 mt-1 uppercase tracking-wider font-semibold">
+              <p className="text-xs text-gray-500 mt-1 uppercase tracking-wider font-semibold">
                 {isAlumni ? 'Alumni Partner' : 'Student Member'}
               </p>
-              <div className="mt-4 p-3 bg-zinc-50 dark:bg-zinc-900/50 rounded-lg text-xs text-zinc-500 text-left space-y-2 border border-zinc-100 dark:border-zinc-800">
+              <div className="mt-4 p-3 bg-zinc-50 dark:bg-zinc-900/50 rounded-lg text-xs text-gray-700 dark:text-gray-300 text-left space-y-2 border border-zinc-100 dark:border-zinc-800">
                 <p><strong>Email:</strong> {profile?.email}</p>
-                <p><strong>Member ID:</strong> {profile?.userId}</p>
+                <p><strong>Member ID:</strong> {profile?.$id}</p>
               </div>
             </CardBody>
           </Card>
@@ -136,7 +136,7 @@ export const ProfilePage = () => {
               />
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="bio" className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                <label htmlFor="bio" className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                   Biography / Summary
                 </label>
                 <textarea

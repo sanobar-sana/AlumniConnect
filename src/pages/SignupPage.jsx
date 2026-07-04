@@ -85,7 +85,7 @@ export const SignupPage = () => {
             <h2 className="text-3xl font-extrabold tracking-tight font-display bg-linear-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
               Create Account
             </h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="text-sm text-gray-700 dark:text-gray-300">
               Join the AlumniConnect professional community
             </p>
           </div>
@@ -114,7 +114,7 @@ export const SignupPage = () => {
               label="College Email Address"
               id="email"
               type="email"
-              placeholder="alex@university.edu"
+              placeholder="20xx056@nitjsr.ac.in"
               icon={Mail}
               required
               value={email}
@@ -172,7 +172,7 @@ export const SignupPage = () => {
             </Button>
           </form>
 
-          <p className="text-center text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="text-center text-sm text-gray-700 dark:text-gray-300">
             Already have an account?{' '}
             <Link
               to="/login"

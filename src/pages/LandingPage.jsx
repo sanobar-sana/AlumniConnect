@@ -25,7 +25,7 @@ export const LandingPage = () => {
         </h1>
 
         {/* Hero Paragraph */}
-        <p className="max-w-2xl text-lg sm:text-xl text-zinc-500 dark:text-zinc-400 mb-10 leading-relaxed font-sans">
+        <p className="max-w-2xl text-lg sm:text-xl text-gray-700 dark:text-gray-300 mb-10 leading-relaxed font-sans">
           Welcome to <span className="font-semibold text-zinc-900 dark:text-white">AlumniConnect</span>, a premium networking ecosystem providing AI-guided mentorship, career advice, direct messaging, and curated career opportunities.
         </p>
 
@@ -51,7 +51,7 @@ export const LandingPage = () => {
                 <Users className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold font-display mb-2">Alumni Directory</h3>
-              <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
                 Connect with graduates in your field, search by industry, current company, or location, and requests mentorship sessions.
               </p>
             </CardBody>
@@ -63,7 +63,7 @@ export const LandingPage = () => {
                 <MessageSquareCode className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold font-display mb-2">AI Career Advisor</h3>
-              <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
                 Receive smart career roadmap planning, resume check-ups, and interactive mock interviews with Gemini-based assistance.
               </p>
             </CardBody>
@@ -75,7 +75,7 @@ export const LandingPage = () => {
                 <Briefcase className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold font-display mb-2">Opportunity Board</h3>
-              <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
                 Discover job posts, internships, and mentoring roles shared directly by alumni working in the industry.
               </p>
             </CardBody>

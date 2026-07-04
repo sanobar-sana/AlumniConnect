@@ -74,7 +74,7 @@ export const PasswordStrengthBar = ({ password }) => {
       <p className={`text-xs font-semibold ${TEXT_COLORS[strength]}`}>
         {LABELS[strength]}
         {strength < 3 && (
-          <span className="font-normal text-zinc-400 dark:text-zinc-500">
+          <span className="font-normal text-gray-600 dark:text-gray-300">
             {' '}— try adding numbers, symbols or uppercase letters
           </span>
         )}

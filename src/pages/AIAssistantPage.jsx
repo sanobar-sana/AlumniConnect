@@ -40,7 +40,9 @@ export const AIAssistantPage = () => {
 
     try {
       const response = await aiService.sendMessageToAssistant(text, chatLog);
-      setChatLog((prev) => [...prev, { sender: 'assistant', text: response }]);
+      const replyText = typeof response.text === 'function' ? response.text() : response;
+      console.log('Gemini AI Assistant response:', replyText);
+      setChatLog((prev) => [...prev, { sender: 'assistant', text: replyText }]);
     } catch (error) {
       console.error(error);
       // Simulate answer if Gemini key is missing
@@ -68,6 +70,7 @@ export const AIAssistantPage = () => {
 
     try {
       const feedback = await aiService.getResumeFeedback(resumeText, jobDescription);
+      console.log('Gemini ATS Resume feedback:', feedback);
       setResumeFeedback(feedback);
     } catch (err) {
       console.error(err);
@@ -90,8 +93,8 @@ export const AIAssistantPage = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-3xl font-bold tracking-tight font-display mb-1">AI Career Advisor</h2>
-        <p className="text-zinc-500 dark:text-zinc-400">Connect with Gemini-powered intelligence to optimize your career path and network impact.</p>
+        <h2 className="text-3xl font-bold tracking-tight font-display mb-1 text-slate-900">AI Career Advisor</h2>
+        <p className="text-gray-700 dark:text-gray-300">Connect with Gemini-powered intelligence to optimize your career path and network impact.</p>
       </div>
 
       {/* Mode Switches */}
@@ -127,26 +130,26 @@ export const AIAssistantPage = () => {
           <div className="lg:col-span-3 space-y-4">
             <Card className="border border-zinc-200 dark:border-zinc-800 flex flex-col h-125">
               {/* Message Display Area */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              <div className="flex-1 overflow-y-auto p-6 space-y-4 max-h-125">
                 {chatLog.map((chat, index) => (
                   <div
                     key={index}
                     className={`flex ${chat.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[80%] rounded-2xl p-4 text-sm leading-relaxed ${
+                      className={`max-w-[80%] rounded-2xl p-4 text-sm leading-relaxed wrap-break-word ${
                         chat.sender === 'user'
                           ? 'bg-indigo-600 text-white rounded-tr-none'
-                          : 'bg-zinc-100 dark:bg-zinc-850 text-zinc-850 dark:text-zinc-150 rounded-tl-none border border-zinc-200/50 dark:border-zinc-800/50'
+                          : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 rounded-tl-none border border-zinc-200/50 dark:border-zinc-800/50'
                       }`}
                     >
-                      <p className="whitespace-pre-line">{chat.text}</p>
+                      <p className="whitespace-pre-wrap">{chat.text}</p>
                     </div>
                   </div>
                 ))}
                 {chatLoading && (
                   <div className="flex justify-start">
-                    <div className="bg-zinc-100 dark:bg-zinc-850 rounded-2xl rounded-tl-none p-4 border border-zinc-200/50 dark:border-zinc-800/50 flex gap-1 items-center">
+                    <div className="bg-zinc-100 dark:bg-zinc-800 rounded-2xl rounded-tl-none p-4 border border-zinc-200/50 dark:border-zinc-800/50 flex gap-1 items-center">
                       <div className="w-2 h-2 rounded-full bg-zinc-400 animate-bounce" />
                       <div className="w-2 h-2 rounded-full bg-zinc-400 animate-bounce [animation-delay:0.2s]" />
                       <div className="w-2 h-2 rounded-full bg-zinc-400 animate-bounce [animation-delay:0.4s]" />
@@ -174,13 +177,13 @@ export const AIAssistantPage = () => {
 
           {/* Templates/Quick Actions Sidebar */}
           <div className="lg:col-span-1 space-y-4">
-            <h4 className="font-bold text-sm text-zinc-400 uppercase tracking-wider">Quick Suggestions</h4>
+            <h4 className="font-bold text-sm text-gray-500 uppercase tracking-wider">Quick Suggestions</h4>
             <div className="flex flex-col gap-3">
               {promptTemplates.map((tmpl, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleSendMessage(tmpl)}
-                  className="w-full text-left p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-zinc-850 text-xs text-zinc-700 dark:text-zinc-300 font-medium transition-all shadow-sm flex items-center justify-between group cursor-pointer"
+                  className="w-full text-left p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-xs text-gray-700 dark:text-gray-300 font-medium transition-all shadow-sm flex items-center justify-between group cursor-pointer"
                 >
                   <span className="line-clamp-2 leading-relaxed">{tmpl}</span>
                   <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:translate-x-0.5 transition-transform" />
@@ -205,7 +208,7 @@ export const AIAssistantPage = () => {
             <form onSubmit={handleResumeReview}>
               <CardBody className="space-y-4">
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="resume" className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                  <label htmlFor="resume" className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                     Paste Resume Content
                   </label>
                   <textarea
@@ -220,7 +223,7 @@ export const AIAssistantPage = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="job-desc" className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                  <label htmlFor="job-desc" className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                     Paste Job Description
                   </label>
                   <textarea
@@ -251,14 +254,14 @@ export const AIAssistantPage = () => {
               {reviewLoading ? (
                 <div className="flex flex-col items-center justify-center py-20 space-y-4">
                   <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-                  <p className="text-sm text-zinc-400">Gemini is auditing keywords and matching scores...</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Gemini is auditing keywords and matching scores...</p>
                 </div>
               ) : resumeFeedback ? (
-                <div className="prose prose-sm dark:prose-invert max-w-none text-sm text-zinc-650 dark:text-zinc-350 space-y-4 whitespace-pre-line leading-relaxed">
+                <div className="prose prose-sm dark:prose-invert max-w-none text-sm text-zinc-700 dark:text-zinc-300 space-y-4 whitespace-pre-wrap wrap-break-word leading-relaxed">
                   {resumeFeedback}
                 </div>
               ) : (
-                <div className="flex flex-col items-center justify-center py-20 text-center space-y-2 border-2 border-dashed border-zinc-200 dark:border-zinc-800/80 rounded-xl text-zinc-400">
+                <div className="flex flex-col items-center justify-center py-20 text-center space-y-2 border-2 border-dashed border-zinc-200 dark:border-zinc-800/80 rounded-xl text-gray-600 dark:text-gray-300">
                   <FileText className="w-10 h-10 text-zinc-300 dark:text-zinc-700" />
                   <p className="text-sm">Submit your resume and target description to get an immediate feedback analysis.</p>
                 </div>

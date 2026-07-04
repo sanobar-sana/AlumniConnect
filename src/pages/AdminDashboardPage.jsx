@@ -28,7 +28,7 @@ export const AdminDashboardPage = () => {
           <ShieldAlert className="w-8 h-8 text-indigo-500" />
           Admin Dashboard
         </h2>
-        <p className="text-zinc-500 dark:text-zinc-400">Manage alumni verifications, moderate job posts, and monitor engagement metrics.</p>
+        <p className="text-gray-700 dark:text-gray-300">Manage alumni verifications, moderate job posts, and monitor engagement metrics.</p>
       </div>
 
       {/* Admin Quick Metrics */}
@@ -40,9 +40,9 @@ export const AdminDashboardPage = () => {
         ].map((item, idx) => (
           <Card key={idx} className={`border border-zinc-200 dark:border-zinc-800 ${item.color}`}>
             <CardBody className="p-5">
-              <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">{item.label}</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{item.label}</p>
               <h3 className="text-2xl font-bold mt-1">{item.count}</h3>
-              <p className="text-xs text-zinc-550 dark:text-zinc-400 mt-1">{item.detail}</p>
+              <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">{item.detail}</p>
             </CardBody>
           </Card>
         ))}
@@ -64,8 +64,8 @@ export const AdminDashboardPage = () => {
                   <div key={user.id} className="p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/10 transition-colors">
                     <div>
                       <h4 className="text-sm font-bold text-zinc-800 dark:text-zinc-200">{user.name}</h4>
-                      <p className="text-xs text-zinc-400 mt-0.5">{user.email}</p>
-                      <p className="text-xs text-zinc-550 dark:text-zinc-400 mt-1 italic">{user.credentials}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{user.email}</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300 mt-1 italic">{user.credentials}</p>
                     </div>
                     <div className="flex gap-2 w-full sm:w-auto">
                       <Button
@@ -90,9 +90,9 @@ export const AdminDashboardPage = () => {
                 ))}
               </div>
             ) : (
-              <div className="p-10 text-center text-zinc-450 dark:text-zinc-500 flex flex-col items-center gap-2">
+              <div className="p-10 text-center text-gray-700 dark:text-gray-300 flex flex-col items-center gap-2">
                 <CheckSquare className="w-8 h-8 text-zinc-300 dark:text-zinc-700" />
-                <p className="text-sm">Verification queue is completely clear.</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300">Verification queue is completely clear.</p>
               </div>
             )}
           </CardBody>
@@ -113,7 +113,7 @@ export const AdminDashboardPage = () => {
                   <div key={opp.id} className="p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/10 transition-colors">
                     <div>
                       <h4 className="text-sm font-bold text-zinc-800 dark:text-zinc-200">{opp.title}</h4>
-                      <p className="text-xs text-zinc-455 dark:text-zinc-400 mt-0.5">Posted by {opp.poster}</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300 mt-0.5">Posted by {opp.poster}</p>
                       <p className="text-xs text-rose-600 dark:text-rose-400 mt-1 font-semibold flex items-center gap-1">
                         Reason: {opp.flagReason}
                       </p>
@@ -140,9 +140,9 @@ export const AdminDashboardPage = () => {
                 ))}
               </div>
             ) : (
-              <div className="p-10 text-center text-zinc-455 dark:text-zinc-500 flex flex-col items-center gap-2">
+              <div className="p-10 text-center text-gray-700 dark:text-gray-300 flex flex-col items-center gap-2">
                 <CheckSquare className="w-8 h-8 text-zinc-300 dark:text-zinc-700" />
-                <p className="text-sm">Content moderation queue is completely clear.</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300">Content moderation queue is completely clear.</p>
               </div>
             )}
           </CardBody>

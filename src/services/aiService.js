@@ -5,7 +5,7 @@ export const aiService = {
    * Generates career advice for a student based on their profile and an alumnus profile.
    */
   async generateCareerAdvice(studentProfile, alumniProfile) {
-    const model = getGeminiModel('gemini-1.5-flash');
+    const model = getGeminiModel('gemini-2.5-flash');
     if (!model) throw new Error('AI service is currently unavailable.');
 
     const prompt = `
@@ -72,24 +72,37 @@ export const aiService = {
     }
   },
 
-  /**
-   * Custom assistant chat function to support user mentoring chat.
-   */
   async sendMessageToAssistant(message, chatHistory = []) {
-    const model = getGeminiModel('gemini-1.5-flash');
+    const model = getGeminiModel('gemini-2.5-flash');
     if (!model) throw new Error('AI service is currently unavailable.');
 
     try {
+      // Defensive validation for history array and elements
+      const validHistory = Array.isArray(chatHistory)
+        ? chatHistory.filter(
+            (item) =>
+              item &&
+              typeof item === 'object' &&
+              typeof item.text === 'string' &&
+              item.text.trim() !== ''
+          )
+        : [];
+
       // Format chat history to Gemini SDK specifications
-      const formattedHistory = chatHistory.map(item => ({
+      const formattedHistory = validHistory.map((item) => ({
         role: item.sender === 'user' ? 'user' : 'model',
-        parts: [{ text: item.text }]
+        parts: [{ text: item.text }],
       }));
+
+      // Ensure the history passed to Gemini never begins with a 'model' message
+      while (formattedHistory.length > 0 && formattedHistory[0].role === 'model') {
+        formattedHistory.shift();
+      }
 
       const chat = model.startChat({
         history: formattedHistory,
         generationConfig: {
-          maxOutputTokens: 1000,
+          maxOutputTokens: 2048,
         },
       });
 

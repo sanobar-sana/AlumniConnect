@@ -27,12 +27,9 @@ export const authService = {
    */
   async login(email, password) {
     try {
+      // Use the current Appwrite SDK login endpoint directly so auth failures are surfaced clearly.
       return await account.createEmailPasswordSession(email, password);
     } catch (error) {
-      // Fallback for older versions of the SDK
-      if (error.message && error.message.includes('createEmailPasswordSession is not a function')) {
-        return await account.createEmailSession(email, password);
-      }
       console.error('Login failed:', error);
       throw error;
     }
@@ -43,10 +40,16 @@ export const authService = {
    */
   async getCurrentUser() {
     try {
+      // Return the authenticated user when a valid session exists.
       return await account.get();
     } catch (error) {
-      // User is not authenticated
-      return null;
+      // Treat an unauthenticated state as a normal logged-out condition instead of swallowing it as an unknown failure.
+      if (error?.code === 401 || error?.statusCode === 401 || error?.type === 'user_unauthorized') {
+        return null;
+      }
+
+      console.error('Failed to fetch current user:', error);
+      throw error;
     }
   },
 

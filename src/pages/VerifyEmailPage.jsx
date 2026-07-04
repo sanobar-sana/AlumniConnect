@@ -58,7 +58,7 @@ export const VerifyEmailPage = () => {
             <h2 className="text-2xl font-bold font-display tracking-tight">
               Verifying your email…
             </h2>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
+            <p className="text-gray-700 dark:text-gray-300 text-sm">
               Please wait while we confirm your email address.
             </p>
           </>
@@ -72,7 +72,7 @@ export const VerifyEmailPage = () => {
             <h2 className="text-2xl font-bold font-display tracking-tight text-emerald-600 dark:text-emerald-400">
               Email Verified!
             </h2>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
+            <p className="text-gray-700 dark:text-gray-300 text-sm">
               Your email address has been successfully verified. Redirecting you to the dashboard…
             </p>
             <Link
@@ -92,7 +92,7 @@ export const VerifyEmailPage = () => {
             <h2 className="text-2xl font-bold font-display tracking-tight text-rose-600 dark:text-rose-400">
               Verification Failed
             </h2>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               {errorMessage}
             </p>
             <div className="flex justify-center gap-4 pt-2">

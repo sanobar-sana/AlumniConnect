@@ -61,7 +61,7 @@ export const LoginPage = () => {
             <h2 className="text-3xl font-extrabold tracking-tight font-display bg-linear-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
               Welcome Back
             </h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="text-sm text-gray-700 dark:text-gray-300">
               Sign in to connect with your community
             </p>
           </div>
@@ -77,8 +77,10 @@ export const LoginPage = () => {
             <Input
               label="Email Address"
               id="email"
+              name="email"
               type="email"
-              placeholder="you@university.edu"
+              autoComplete="email"
+              placeholder="2025ugce056@nitjsr.ac.in"
               icon={Mail}
               required
               value={email}
@@ -89,7 +91,9 @@ export const LoginPage = () => {
             <Input
               label="Password"
               id="password"
+              name="password"
               type="password"
+              autoComplete="current-password"
               placeholder="••••••••"
               icon={Lock}
               required
@@ -109,7 +113,7 @@ export const LoginPage = () => {
             </Button>
           </form>
 
-          <p className="text-center text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="text-center text-sm text-gray-700 dark:text-gray-300">
             Don't have an account?{' '}
             <Link
               to="/register"

@@ -59,8 +59,7 @@ export const OpportunitiesPage = () => {
         description: newOpp.description,
         salary: newOpp.salary,
         link: newOpp.link,
-        posterName: profile?.name || user?.name || 'Alumnus',
-        posterId: user?.$id || 'anonymous'
+        createdAt: new Date().toISOString(),
       };
 
       await dbService.createOpportunity(opportunityData);
@@ -107,13 +106,13 @@ export const OpportunitiesPage = () => {
   const getBadgeStyles = (type) => {
     switch (type) {
       case 'job':
-        return 'bg-violet-100 text-violet-750 dark:bg-violet-950/45 dark:text-violet-400';
+        return 'bg-violet-100 text-violet-900 font-bold border border-violet-200 dark:bg-violet-950/45 dark:text-violet-400';
       case 'internship':
-        return 'bg-emerald-100 text-emerald-750 dark:bg-emerald-950/45 dark:text-emerald-400';
+        return 'bg-emerald-100 text-emerald-900 font-bold border border-emerald-200 dark:bg-emerald-950/45 dark:text-emerald-400';
       case 'mentorship':
-        return 'bg-pink-100 text-pink-750 dark:bg-pink-950/45 dark:text-pink-400';
+        return 'bg-pink-100 text-pink-900 font-bold border border-pink-200 dark:bg-pink-950/45 dark:text-pink-400';
       default:
-        return 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-400';
+        return 'bg-zinc-100 text-zinc-900 font-bold border border-zinc-200 dark:bg-zinc-800 dark:text-zinc-400';
     }
   };
 
@@ -123,8 +122,8 @@ export const OpportunitiesPage = () => {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight font-display mb-1">Opportunities Board</h2>
-          <p className="text-zinc-500 dark:text-zinc-400">Discover exclusive jobs, internships, and mentoring projects shared by our alumni.</p>
+          <h2 className="text-3xl font-bold tracking-tight font-display mb-1 text-blue-500">Opportunities Board</h2>
+          <p className="text-gray-700 dark:text-gray-300">Discover exclusive jobs, internships, and mentoring projects shared by our alumni.</p>
         </div>
         {isAlumni && (
           <Button
@@ -145,7 +144,7 @@ export const OpportunitiesPage = () => {
           </CardHeader>
           <form onSubmit={handleCreate}>
             <CardBody className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-900">
                 <Input
                   label="Role Title"
                   id="title"
@@ -174,7 +173,7 @@ export const OpportunitiesPage = () => {
                   onChange={(e) => setNewOpp({ ...newOpp, location: e.target.value })}
                 />
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="type" className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                  <label htmlFor="type" className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                     Opportunity Type
                   </label>
                   <select
@@ -208,7 +207,7 @@ export const OpportunitiesPage = () => {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="description" className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                <label htmlFor="description" className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                   Description
                 </label>
                 <textarea
@@ -294,26 +293,26 @@ export const OpportunitiesPage = () => {
                   )}
                 </div>
 
-                <p className="text-sm text-zinc-650 dark:text-zinc-400 leading-relaxed max-w-4xl">
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl">
                   {opp.description}
                 </p>
 
                 <hr className="border-zinc-100 dark:border-zinc-800" />
 
-                <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-zinc-400">
+                <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-gray-600 dark:text-gray-300">
                   <div className="flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4 text-zinc-400" />
+                    <MapPin className="w-4 h-4 text-gray-600 dark:text-gray-300" />
                     <span>{opp.location}</span>
                   </div>
                   {opp.salary && (
                     <div className="flex items-center gap-1.5">
-                      <DollarSign className="w-4 h-4 text-zinc-400" />
+                      <DollarSign className="w-4 h-4 text-gray-600 dark:text-gray-300" />
                       <span>{opp.salary}</span>
                     </div>
                   )}
                   {opp.posterName && (
                     <div className="flex items-center gap-1.5">
-                      <Briefcase className="w-4 h-4 text-zinc-400" />
+                      <Briefcase className="w-4 h-4 text-gray-600 dark:text-gray-300" />
                       <span>Referral contact: <strong>{opp.posterName}</strong></span>
                     </div>
                   )}
@@ -324,7 +323,7 @@ export const OpportunitiesPage = () => {
         </div>
       ) : (
         <div className="glass-card text-center p-12 rounded-xl border border-zinc-200 dark:border-zinc-800">
-          <p className="text-zinc-500 dark:text-zinc-400">No opportunities matching your query were found.</p>
+          <p className="text-gray-700 dark:text-gray-300">No opportunities matching your query were found.</p>
         </div>
       )}
     </div>

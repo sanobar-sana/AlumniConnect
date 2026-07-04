@@ -13,13 +13,13 @@ export const Footer = () => {
             <span className="font-display text-lg font-bold tracking-tight bg-linear-to-r from-violet-600 via-indigo-600 to-pink-600 dark:from-violet-400 dark:via-indigo-400 dark:to-pink-400 bg-clip-text text-transparent">
               AlumniConnect
             </span>
-            <p className="text-xs text-zinc-400 dark:text-zinc-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               &copy; {currentYear} AlumniConnect. All rights reserved.
             </p>
           </div>
 
           {/* Slogan */}
-          <div className="flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
+          <div className="flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300">
             <span>Built with</span>
             <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
             <span>for students & alumni globally.</span>
@@ -31,7 +31,7 @@ export const Footer = () => {
               href="https://linkedin.com"
               target="_blank"
               rel="noreferrer"
-              className="text-zinc-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors"
+              className="text-gray-500 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
@@ -40,7 +40,7 @@ export const Footer = () => {
               href="https://twitter.com"
               target="_blank"
               rel="noreferrer"
-              className="text-zinc-400 hover:text-indigo-400 dark:hover:text-indigo-400 transition-colors"
+              className="text-gray-500 hover:text-indigo-400 dark:hover:text-indigo-400 transition-colors"
               aria-label="Twitter"
             >
               <Twitter className="w-5 h-5" />
@@ -49,7 +49,7 @@ export const Footer = () => {
               href="https://github.com"
               target="_blank"
               rel="noreferrer"
-              className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors"
               aria-label="GitHub"
             >
               <Github className="w-5 h-5" />

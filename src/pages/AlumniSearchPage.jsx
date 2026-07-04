@@ -58,8 +58,10 @@ export const AlumniSearchPage = () => {
       alumnus.name.toLowerCase().includes(query) ||
       (alumnus.company && alumnus.company.toLowerCase().includes(query)) ||
       (alumnus.jobTitle && alumnus.jobTitle.toLowerCase().includes(query)) ||
-      alumnus.skills.some((skill) => skill.toLowerCase().includes(query));
-
+      (Array.isArray(alumnus.skills) ?
+      alumnus.skills.some(skill => skill.toLowerCase().includes(query))
+      : (alumnus.skills && alumnus.skills.toLowerCase().includes(query))
+  );
     const matchesIndustry =
       !industryFilter ||
       (alumnus.company && alumnus.company.toLowerCase().includes(industryFilter.toLowerCase())) ||
@@ -71,8 +73,8 @@ export const AlumniSearchPage = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-3xl font-bold tracking-tight font-display mb-1">Alumni Directory</h2>
-        <p className="text-zinc-500 dark:text-zinc-400">Discover and network with graduates working in top companies worldwide.</p>
+        <h2 className="text-3xl font-bold tracking-tight font-display mb-1 text-slate-900">Alumni Directory</h2>
+        <p className="text-gray-700 dark:text-gray-300">Discover and network with graduates working in top companies worldwide.</p>
       </div>
 
       {/* Filter and Search Bar */}
@@ -88,7 +90,7 @@ export const AlumniSearchPage = () => {
         </div>
         <div className="w-full sm:w-64">
           <select
-            className="w-full h-[46px] rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all cursor-pointer"
+            className="w-full h-11.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all cursor-pointer"
             value={industryFilter}
             onChange={(e) => setIndustryFilter(e.target.value)}
           >
@@ -112,24 +114,24 @@ export const AlumniSearchPage = () => {
             <Card key={alumnus.$id} isHoverable className="border border-zinc-200 dark:border-zinc-800 relative overflow-hidden flex flex-col justify-between">
               <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full blur-2xl -z-10" />
               <CardBody className="p-6 space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr from-violet-650 to-indigo-650 text-white font-bold text-lg">
+                <div className="flex items-start gap-4 text-blue-500">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-linear-to-tr from-violet-650 to-indigo-650 text-white font-bold text-lg">
                     {getInitials(alumnus.name)}
                   </div>
                   <div>
                     <h3 className="text-lg font-bold font-display">{alumnus.name}</h3>
-                    <div className="flex items-center gap-1 text-sm text-zinc-650 dark:text-zinc-300 mt-1">
+                    <div className="flex items-center gap-1 text-sm text-gray-700 dark:text-gray-300 mt-1">
                       <Briefcase className="w-4 h-4 text-indigo-500 shrink-0" />
                       <span>{alumnus.jobTitle} at <strong className="text-zinc-900 dark:text-zinc-100">{alumnus.company}</strong></span>
                     </div>
-                    <div className="flex items-center gap-1 text-xs text-zinc-400 mt-1">
+                    <div className="flex items-center gap-1 text-xs text-gray-600 mt-1">
                       <GraduationCap className="w-4 h-4 text-zinc-400 shrink-0" />
                       <span>Class of {alumnus.gradYear} &bull; {alumnus.major}</span>
                     </div>
                   </div>
                 </div>
 
-                <p className="text-sm text-zinc-500 dark:text-zinc-400 line-clamp-3 leading-relaxed">
+                <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3 leading-relaxed">
                   {alumnus.bio || "No summary provided yet."}
                 </p>
 
@@ -139,7 +141,7 @@ export const AlumniSearchPage = () => {
                     {alumnus.skills.map((skill, index) => (
                       <span
                         key={index}
-                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-850 text-zinc-600 dark:text-zinc-400 text-xs font-medium"
+                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-850 text-gray-700 dark:text-gray-300 text-xs font-medium"
                       >
                         <Award className="w-3 h-3 text-zinc-400" />
                         {skill}
@@ -150,7 +152,7 @@ export const AlumniSearchPage = () => {
               </CardBody>
 
               <div className="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 flex justify-between items-center rounded-b-xl">
-                <span className="text-xs text-zinc-400">Available for mentorship</span>
+                <span className="text-xs text-gray-600">Available for mentorship</span>
                 <Button
                   variant={sentRequests[alumnus.$id] === 'sent' ? 'secondary' : 'primary'}
                   size="sm"
@@ -168,7 +170,7 @@ export const AlumniSearchPage = () => {
         </div>
       ) : (
         <div className="glass-card text-center p-12 rounded-xl border border-zinc-200 dark:border-zinc-800">
-          <p className="text-zinc-500 dark:text-zinc-400">No alumni matching your search parameters were found.</p>
+          <p className="text-gray-700 dark:text-gray-300">No alumni matching your search parameters were found.</p>
         </div>
       )}
     </div>

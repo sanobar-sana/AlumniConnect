@@ -14,10 +14,13 @@ import AlumniSearchPage from '../pages/AlumniSearchPage';
 import OpportunitiesPage from '../pages/OpportunitiesPage';
 import AIAssistantPage from '../pages/AIAssistantPage';
 import AdminDashboardPage from '../pages/AdminDashboardPage';
+import LeaderboardPage from '../pages/LeaderboardPage';
+import ConnectionsPage from '../pages/ConnectionsPage';
+import MessagesPage from '../pages/MessagesPage';
 
 // Protected Route Wrapper Component
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+const ProtectedRoute = ({ children, allowedRoles }) => {
+  const { user, profile, loading } = useAuth();
 
   if (loading) {
     return (
@@ -29,6 +32,10 @@ const ProtectedRoute = ({ children }) => {
 
   if (!user) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (allowedRoles && profile && !allowedRoles.includes(profile.role)) {
+    return <Navigate to="/dashboard" replace />;
   }
 
   return children;
@@ -53,7 +60,11 @@ export const AppRoutes = () => {
         <Route path="/opportunities" element={<ProtectedRoute><OpportunitiesPage /></ProtectedRoute>} />
         <Route path="/ai-advisor" element={<ProtectedRoute><AIAssistantPage /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-        <Route path="/admin" element={<ProtectedRoute><AdminDashboardPage /></ProtectedRoute>} />
+        <Route path="/connections" element={<ProtectedRoute><ConnectionsPage /></ProtectedRoute>} />
+        <Route path="/messages" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
+        <Route path="/messages/:userId" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
+        <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboardPage /></ProtectedRoute>} />
       </Route>
       
       {/* Fallback route */}
