@@ -128,14 +128,14 @@
 
   /* Gradient text helpers */
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-indigo-600 to-pink-500 dark:from-violet-400 dark:via-indigo-400 dark:to-pink-400;
+    @apply bg-clip-text text-transparent bg-linear-to-r from-violet-600 via-indigo-600 to-pink-500 dark:from-violet-400 dark:via-indigo-400 dark:to-pink-400;
   }
   .text-gradient-gold {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-yellow-400 to-orange-500;
+    @apply bg-clip-text text-transparent bg-linear-to-r from-amber-500 via-yellow-400 to-orange-500;
   }
 
   /* Page-level soft background gradient */
   .page-bg {
-    @apply bg-gradient-to-br from-slate-50 via-white to-violet-50/60 dark:from-slate-950 dark:via-slate-900 dark:to-violet-950/10;
+    @apply bg-linear-to-br from-slate-50 via-white to-violet-50/60 dark:from-slate-950 dark:via-slate-900 dark:to-violet-950/10;
   }
 }
