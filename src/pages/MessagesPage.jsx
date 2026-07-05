@@ -430,17 +430,17 @@ export const MessagesPage = () => {
   });
 
   return (
-    <div className="flex flex-col h-[calc(100vh-10rem)] max-h-187.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl overflow-hidden relative">
+    <div className="flex flex-col h-[calc(100vh-10rem)] max-h-187.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md overflow-hidden relative">
       <div className="flex flex-1 h-full min-h-0">
         
         {/* ================= LEFT SIDEBAR ================= */}
         <div
-          className={`flex-col md:flex border-r border-zinc-200 dark:border-zinc-800 w-full md:w-80 lg:w-96 shrink-0 bg-white dark:bg-zinc-900 ${
+          className={`flex-col md:flex border-r border-slate-200/60 dark:border-slate-800 w-full md:w-80 lg:w-96 shrink-0 bg-white dark:bg-slate-900 ${
             mobileView === 'list' ? 'flex' : 'hidden'
           }`}
         >
           {/* Sidebar Header */}
-          <div className="p-4 border-b border-zinc-150 dark:border-zinc-800 flex justify-between items-center gap-3">
+          <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center gap-3">
             <h1 className="text-xl font-bold tracking-tight font-display text-gradient">Messages</h1>
             <Button
               variant="outline"
@@ -453,15 +453,15 @@ export const MessagesPage = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="p-3 border-b border-zinc-100 dark:border-zinc-800/40">
+          <div className="p-3 border-b border-slate-100 dark:border-slate-800/40">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 dark:text-zinc-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
               <input
                 type="text"
                 placeholder="Search chats..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 text-sm bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-zinc-900 dark:text-zinc-50 transition-all"
+                className="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500/15 focus:border-violet-500 text-slate-900 dark:text-slate-50 font-medium transition-all"
               />
             </div>
           </div>
@@ -472,21 +472,21 @@ export const MessagesPage = () => {
               <div className="space-y-3 p-4">
                 {[1, 2, 3].map((n) => (
                   <div key={n} className="flex items-center gap-3 animate-pulse">
-                    <div className="w-12 h-12 rounded-full bg-zinc-200 dark:bg-zinc-800" />
+                    <div className="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800" />
                     <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-zinc-200 dark:bg-zinc-800 rounded w-2/3" />
-                      <div className="h-3 bg-zinc-200 dark:bg-zinc-800 rounded w-5/6" />
+                      <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-2/3" />
+                      <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-5/6" />
                     </div>
                   </div>
                 ))}
               </div>
             ) : filteredConversations.length === 0 ? (
               <div className="flex flex-col items-center justify-center p-8 text-center h-full">
-                <MessageSquare className="w-12 h-12 text-zinc-300 dark:text-zinc-700 mb-3" />
-                <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">No conversations found</p>
+                <MessageSquare className="w-12 h-12 text-slate-300 dark:text-slate-700 mb-3" />
+                <p className="text-sm font-semibold text-slate-600 dark:text-slate-400">No conversations found</p>
                 <button
                   onClick={openNewChatModal}
-                  className="mt-3 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 cursor-pointer"
+                  className="mt-3 text-xs font-bold text-violet-600 dark:text-violet-400 hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   Start a chat with network
                 </button>
@@ -501,13 +501,13 @@ export const MessagesPage = () => {
                   <div
                     key={convo.conversationId}
                     onClick={() => handleSelectConvo(convo)}
-                    className={`flex items-center gap-3.5 p-4 border-b border-zinc-100 dark:border-zinc-800/40 cursor-pointer transition-all hover:bg-zinc-50 dark:hover:bg-zinc-800/25 ${
-                      isActive ? 'bg-indigo-50/50 dark:bg-indigo-950/20 border-l-4 border-l-indigo-600 dark:border-l-indigo-500' : ''
+                    className={`flex items-center gap-3.5 p-4 border-b border-slate-100/80 dark:border-slate-800/40 cursor-pointer transition-all hover:bg-slate-50 dark:hover:bg-slate-800/25 ${
+                      isActive ? 'bg-violet-50/60 dark:bg-violet-950/20 border-l-4 border-l-violet-600 dark:border-l-violet-500' : ''
                     }`}
                   >
                     {/* Avatar Badge */}
                     <div className="relative shrink-0">
-                      <div className="h-12 w-12 rounded-full bg-linear-to-tr from-violet-650 to-indigo-650 text-white font-bold flex items-center justify-center shadow-md">
+                      <div className="h-11 w-11 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-sm">
                         {getInitials(convo.otherUser.name)}
                       </div>
                       {isUnread && (
@@ -521,20 +521,20 @@ export const MessagesPage = () => {
                     {/* Meta Detail Info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-baseline mb-1">
-                        <h2 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 truncate">
+                        <h2 className="font-bold text-sm text-slate-900 dark:text-white truncate">
                           {convo.otherUser.name}
                         </h2>
                         {lastMsg && (
-                          <span className="text-[10px] text-gray-600 dark:text-gray-300 shrink-0 font-medium ml-2">
+                          <span className="text-[10px] text-slate-400 shrink-0 font-medium ml-2">
                             {formatDate(lastMsg.timestamp, true)}
                           </span>
                         )}
                       </div>
 
                       <p className={`text-xs truncate ${
-                        isUnread ? 'text-zinc-950 dark:text-white font-bold' : 'text-gray-700 dark:text-gray-300 font-medium'
+                        isUnread ? 'text-slate-900 dark:text-white font-bold' : 'text-slate-500 dark:text-slate-400 font-medium'
                       }`}>
-                        {lastMsg ? truncateText(lastMsg.text, 65) : <span className="italic text-gray-600 dark:text-gray-300">Draft session created...</span>}
+                        {lastMsg ? truncateText(lastMsg.text, 65) : <span className="italic text-slate-400">Draft session created...</span>}
                       </p>
                     </div>
                   </div>
@@ -546,32 +546,32 @@ export const MessagesPage = () => {
 
         {/* ================= RIGHT MESSAGE PANEL ================= */}
         <div
-          className={`flex-1 flex-col bg-zinc-50 dark:bg-zinc-950/40 relative ${
+          className={`flex-1 flex-col bg-slate-50/80 dark:bg-slate-950/40 relative ${
             mobileView === 'chat' && selectedConvo ? 'flex' : 'hidden md:flex'
           }`}
         >
           {selectedConvo ? (
             <>
               {/* Chat Header */}
-              <div className="flex items-center justify-between p-4 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 backdrop-blur-md sticky top-0 z-10">
+              <div className="flex items-center justify-between p-4 border-b border-slate-200/60 dark:border-slate-800 bg-white dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-10">
                 <div className="flex items-center gap-3 min-w-0">
                   {/* Mobile Back Nav Icon */}
                   <button
                     onClick={() => setMobileView('list')}
-                    className="md:hidden p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-650 dark:text-zinc-350 cursor-pointer"
+                    className="md:hidden p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 cursor-pointer"
                   >
                     <ArrowLeft className="w-5 h-5" />
                   </button>
 
-                  <div className="h-10 w-10 rounded-full bg-linear-to-tr from-violet-650 to-indigo-650 text-white font-bold text-sm flex items-center justify-center shadow">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-600 text-white font-bold text-sm flex items-center justify-center shadow-sm">
                     {getInitials(selectedConvo.otherUser.name)}
                   </div>
                   
                   <div className="min-w-0">
-                    <h3 className="font-bold text-sm text-zinc-900 dark:text-white truncate">
+                    <h3 className="font-bold text-sm text-slate-900 dark:text-white truncate">
                       {selectedConvo.otherUser.name}
                     </h3>
-                    <p className="text-[11px] text-indigo-650 dark:text-indigo-400 font-bold truncate flex items-center gap-1">
+                    <p className="text-[11px] text-violet-600 dark:text-violet-400 font-bold truncate flex items-center gap-1">
                       {selectedConvo.otherUser.role === 'alumni' ? (
                         <>
                           <Briefcase className="w-3 h-3" />
@@ -589,10 +589,10 @@ export const MessagesPage = () => {
               </div>
 
               {/* Message List Scroll View */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0 bg-zinc-50 dark:bg-zinc-950/20">
+              <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0 bg-slate-50/80 dark:bg-slate-950/20">
                 {loadingMessages ? (
                   <div className="flex items-center justify-center h-full">
-                    <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-8 h-8 border-2 border-violet-600 border-t-transparent rounded-full animate-spin"></div>
                   </div>
                 ) : (
                   <>
@@ -607,7 +607,7 @@ export const MessagesPage = () => {
                         <div key={msg.$id || index} className="space-y-2">
                           {showDateDivider && (
                             <div className="flex justify-center my-3">
-                              <span className="text-[10px] font-bold tracking-wide uppercase px-2.5 py-1 bg-zinc-200/60 dark:bg-zinc-800 text-zinc-550 dark:text-zinc-400 rounded-full">
+                              <span className="text-[10px] font-bold tracking-wide uppercase px-3 py-1 bg-slate-200/70 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full">
                                 {msgDate.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
                               </span>
                             </div>
@@ -616,8 +616,8 @@ export const MessagesPage = () => {
                             <div
                               className={`max-w-[75%] rounded-2xl px-4 py-2.5 shadow-sm text-sm leading-relaxed relative wrap-break-words ${
                                 isMe
-                                  ? 'bg-indigo-600 dark:bg-indigo-500 text-white rounded-tr-none'
-                                  : 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 rounded-tl-none border border-zinc-200/50 dark:border-zinc-800/40'
+                                  ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-tr-none shadow-md shadow-violet-500/20'
+                                  : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-tl-none border border-slate-200/60 dark:border-slate-700/40'
                               }`}
                             >
                               <p className="whitespace-pre-wrap wrap-break-words">{msg.text}</p>
@@ -628,7 +628,7 @@ export const MessagesPage = () => {
                                 </span>
                                 {isMe && (
                                   msg.read ? (
-                                    <CheckCheck className="w-3.5 h-3.5 text-indigo-200" />
+                                    <CheckCheck className="w-3.5 h-3.5 text-violet-200" />
                                   ) : (
                                     <Check className="w-3.5 h-3.5 text-white/70" />
                                   )
@@ -647,7 +647,7 @@ export const MessagesPage = () => {
               {/* Chat Input Bar */}
               <form
                 onSubmit={handleSendMessage}
-                className="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex gap-3 items-center sticky bottom-0"
+                className="p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex gap-3 items-center sticky bottom-0"
               >
                 <input
                   type="text"
@@ -655,7 +655,7 @@ export const MessagesPage = () => {
                   value={newMessageText}
                   onChange={(e) => setNewMessageText(e.target.value)}
                   disabled={sendingMessage}
-                  className="flex-1 px-4 py-2.5 text-sm bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-zinc-900 dark:text-zinc-50 transition-all"
+                  className="flex-1 px-4 py-2.5 text-sm font-medium bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500/15 focus:border-violet-500 dark:focus:border-violet-400 text-slate-900 dark:text-slate-50 placeholder-slate-400 transition-all"
                 />
                 <Button
                   type="submit"
@@ -670,12 +670,12 @@ export const MessagesPage = () => {
             </>
           ) : (
             /* Empty Chat State Display */
-            <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-zinc-50 dark:bg-zinc-950/20">
-              <div className="w-16 h-16 rounded-2xl bg-linear-to-tr from-indigo-500/10 to-violet-500/10 flex items-center justify-center mb-4">
-                <MessageSquare className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+            <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-slate-50/80 dark:bg-slate-950/20">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-violet-100 to-indigo-100 dark:from-violet-950/30 dark:to-indigo-950/30 flex items-center justify-center mb-4">
+                <MessageSquare className="w-8 h-8 text-violet-600 dark:text-violet-400" />
               </div>
-              <h2 className="text-xl font-bold tracking-tight mb-2 text-slate-900">Your Conversations</h2>
-              <p className="text-sm text-gray-700 dark:text-gray-300 max-w-sm">
+              <h2 className="text-xl font-bold tracking-tight mb-2 text-slate-900 dark:text-white">Your Conversations</h2>
+              <p className="text-sm text-slate-500 font-medium max-w-sm">
                 Select a conversation thread from the list or start a new discussion to chat with your alumni network.
               </p>
               <Button
@@ -694,20 +694,20 @@ export const MessagesPage = () => {
 
       {/* ================= NEW CHAT SELECTION MODAL ================= */}
       {isNewChatModalOpen && (
-        <div className="absolute inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl max-w-md w-full shadow-2xl overflow-hidden flex flex-col max-h-[85%]">
+        <div className="absolute inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl max-w-md w-full shadow-2xl overflow-hidden flex flex-col max-h-[85%]">
             
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-4 border-b border-zinc-150 dark:border-zinc-800">
+            <div className="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800">
               <h3 className="font-bold text-gradient text-base flex items-center gap-2">
-                <Users className="w-5 h-5 text-indigo-500" />
+                <Users className="w-4.5 h-4.5 text-violet-500" />
                 Start a Conversation
               </h3>
               <button
                 onClick={() => setIsNewChatModalOpen(false)}
-                className="p-1 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-400 dark:text-zinc-500 cursor-pointer"
+                className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 cursor-pointer transition-colors"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4.5 h-4.5" />
               </button>
             </div>
 
@@ -715,13 +715,13 @@ export const MessagesPage = () => {
             <div className="flex-1 overflow-y-auto p-3 space-y-2.5 min-h-0">
               {loadingConnections ? (
                 <div className="flex justify-center items-center py-12">
-                  <div className="w-7 h-7 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-7 h-7 border-2 border-violet-600 border-t-transparent rounded-full animate-spin"></div>
                 </div>
               ) : connections.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <Sparkles className="w-10 h-10 text-indigo-400 dark:text-indigo-600/60 mb-2 animate-pulse" />
-                  <p className="text-sm font-bold text-zinc-800 dark:text-zinc-200">No active connections</p>
-                  <p className="text-xs text-gray-700 dark:text-gray-300 max-w-70 mt-1">
+                  <Sparkles className="w-10 h-10 text-violet-400 dark:text-violet-600/60 mb-2 animate-pulse" />
+                  <p className="text-sm font-bold text-slate-800 dark:text-slate-200">No active connections</p>
+                  <p className="text-xs text-slate-500 max-w-64 mt-1 font-medium leading-relaxed">
                     You can only message members of the network who have accepted your connection request.
                   </p>
                 </div>
@@ -733,17 +733,17 @@ export const MessagesPage = () => {
                       setIsNewChatModalOpen(false);
                       initiateConversationWithUser(person.$id);
                     }}
-                    className="flex items-center gap-3.5 p-3 rounded-xl border border-zinc-150 dark:border-zinc-800/60 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 cursor-pointer transition-all hover:border-indigo-500/30"
+                    className="flex items-center gap-3.5 p-3 rounded-xl border border-slate-100 dark:border-slate-800/60 hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer transition-all hover:border-violet-300/40"
                   >
-                    <div className="h-10 w-10 rounded-full bg-linear-to-tr from-violet-650 to-indigo-650 text-white font-bold flex items-center justify-center shrink-0 shadow-sm">
+                    <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-600 text-white font-bold flex items-center justify-center shrink-0 shadow-sm">
                       {getInitials(person.name)}
                     </div>
                     
                     <div className="min-w-0 flex-1">
-                      <h4 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate">
+                      <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate">
                         {person.name}
                       </h4>
-                      <p className="text-xs text-zinc-500 dark:text-zinc-400 truncate">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate font-medium">
                         {person.role === 'alumni'
                           ? `${person.jobTitle || 'Alumni'} at ${person.company || 'Industry Partner'}`
                           : `Student (Class of ${person.gradYear || 'N/A'})`}
@@ -755,7 +755,7 @@ export const MessagesPage = () => {
             </div>
 
             {/* Modal Footer */}
-            <div className="p-3.5 border-t border-zinc-150 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 flex justify-end">
+            <div className="p-3.5 border-t border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/50 flex justify-end">
               <Button
                 variant="outline"
                 size="sm"

@@ -4,8 +4,9 @@ import useAuth from '../hooks/useAuth';
 import Card, { CardBody } from '../components/common/Card';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
-import { Search, MapPin, Briefcase, Award, GraduationCap, Check, MessageSquare } from 'lucide-react';
+import { Search, MapPin, Briefcase, Award, GraduationCap, Check, MessageSquare, Users } from 'lucide-react';
 import { getInitials } from '../utils/helpers';
+import { motion } from 'framer-motion';
 
 export const AlumniSearchPage = () => {
   const { user } = useAuth();
@@ -59,9 +60,9 @@ export const AlumniSearchPage = () => {
       (alumnus.company && alumnus.company.toLowerCase().includes(query)) ||
       (alumnus.jobTitle && alumnus.jobTitle.toLowerCase().includes(query)) ||
       (Array.isArray(alumnus.skills) ?
-      alumnus.skills.some(skill => skill.toLowerCase().includes(query))
-      : (alumnus.skills && alumnus.skills.toLowerCase().includes(query))
-  );
+        alumnus.skills.some(skill => skill.toLowerCase().includes(query))
+        : (alumnus.skills && alumnus.skills.toLowerCase().includes(query))
+      );
     const matchesIndustry =
       !industryFilter ||
       (alumnus.company && alumnus.company.toLowerCase().includes(industryFilter.toLowerCase())) ||
@@ -71,14 +72,23 @@ export const AlumniSearchPage = () => {
   });
 
   return (
-    <div className="space-y-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="space-y-8"
+    >
+      {/* Page Header */}
       <div>
-        <h2 className="text-3xl font-bold tracking-tight font-display mb-1 text-slate-900">Alumni Directory</h2>
-        <p className="text-gray-700 dark:text-gray-300">Discover and network with graduates working in top companies worldwide.</p>
+        <h2 className="text-3xl font-bold tracking-tight font-display mb-1 text-slate-900 dark:text-white flex items-center gap-2">
+          <Users className="w-7 h-7 text-violet-600" />
+          Alumni Directory
+        </h2>
+        <p className="text-slate-500 font-medium">Discover and network with graduates working in top companies worldwide.</p>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-3 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
         <div className="flex-1">
           <Input
             id="search"
@@ -88,9 +98,9 @@ export const AlumniSearchPage = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div className="w-full sm:w-64">
+        <div className="w-full sm:w-56">
           <select
-            className="w-full h-11.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all cursor-pointer"
+            className="w-full h-[42px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 px-4 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all cursor-pointer"
             value={industryFilter}
             onChange={(e) => setIndustryFilter(e.target.value)}
           >
@@ -106,74 +116,83 @@ export const AlumniSearchPage = () => {
       {/* Directory Grid */}
       {loading ? (
         <div className="flex justify-center items-center h-64">
-          <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-8 h-8 border-2 border-violet-600 border-t-transparent rounded-full animate-spin"></div>
         </div>
       ) : filteredAlumni.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredAlumni.map((alumnus) => (
-            <Card key={alumnus.$id} isHoverable className="border border-zinc-200 dark:border-zinc-800 relative overflow-hidden flex flex-col justify-between">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full blur-2xl -z-10" />
-              <CardBody className="p-6 space-y-4">
-                <div className="flex items-start gap-4 text-blue-500">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-linear-to-tr from-violet-650 to-indigo-650 text-white font-bold text-lg">
-                    {getInitials(alumnus.name)}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold font-display">{alumnus.name}</h3>
-                    <div className="flex items-center gap-1 text-sm text-gray-700 dark:text-gray-300 mt-1">
-                      <Briefcase className="w-4 h-4 text-indigo-500 shrink-0" />
-                      <span>{alumnus.jobTitle} at <strong className="text-zinc-900 dark:text-zinc-100">{alumnus.company}</strong></span>
+          {filteredAlumni.map((alumnus, idx) => (
+            <motion.div
+              key={alumnus.$id}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: idx * 0.06 }}
+            >
+              <Card isHoverable className="flex flex-col justify-between h-full overflow-hidden">
+                {/* Top gradient strip per card */}
+                <div className="h-0.5 w-full bg-gradient-to-r from-violet-500 to-indigo-500" />
+                <CardBody className="p-6 space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr from-violet-600 to-indigo-600 text-white font-bold text-lg shadow-sm">
+                      {getInitials(alumnus.name)}
                     </div>
-                    <div className="flex items-center gap-1 text-xs text-gray-600 mt-1">
-                      <GraduationCap className="w-4 h-4 text-zinc-400 shrink-0" />
-                      <span>Class of {alumnus.gradYear} &bull; {alumnus.major}</span>
+                    <div>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white font-display">{alumnus.name}</h3>
+                      <div className="flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-400 mt-1">
+                        <Briefcase className="w-3.5 h-3.5 text-violet-500 shrink-0" />
+                        <span className="font-medium">{alumnus.jobTitle} at <strong className="text-slate-800 dark:text-slate-200 font-bold">{alumnus.company}</strong></span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-1">
+                        <GraduationCap className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                        <span className="font-medium">Class of {alumnus.gradYear} &bull; {alumnus.major}</span>
+                      </div>
                     </div>
                   </div>
+
+                  <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-3 leading-relaxed font-medium">
+                    {alumnus.bio || 'No summary provided yet.'}
+                  </p>
+
+                  {/* Skills tags */}
+                  {alumnus.skills && alumnus.skills.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {alumnus.skills.map((skill, index) => (
+                        <span
+                          key={index}
+                          className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-violet-50 dark:bg-violet-950/30 text-violet-700 dark:text-violet-400 text-xs font-semibold border border-violet-100/60 dark:border-violet-900/30"
+                        >
+                          <Award className="w-3 h-3" />
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </CardBody>
+
+                <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-800/60 bg-slate-50/60 dark:bg-slate-900/40 flex justify-between items-center rounded-b-2xl">
+                  <span className="text-xs text-slate-500 font-semibold">Available for mentorship</span>
+                  <Button
+                    variant={sentRequests[alumnus.$id] === 'sent' ? 'secondary' : 'primary'}
+                    size="sm"
+                    onClick={() => handleConnect(alumnus.$id)}
+                    isDisabled={sentRequests[alumnus.$id] === 'sent' || sentRequests[alumnus.$id] === 'sending'}
+                    icon={sentRequests[alumnus.$id] === 'sent' ? Check : MessageSquare}
+                  >
+                    {sentRequests[alumnus.$id] === 'sending' && 'Connecting...'}
+                    {sentRequests[alumnus.$id] === 'sent' && 'Request Sent'}
+                    {!sentRequests[alumnus.$id] && 'Connect'}
+                  </Button>
                 </div>
-
-                <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3 leading-relaxed">
-                  {alumnus.bio || "No summary provided yet."}
-                </p>
-
-                {/* Skills tags */}
-                {alumnus.skills && alumnus.skills.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {alumnus.skills.map((skill, index) => (
-                      <span
-                        key={index}
-                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-850 text-gray-700 dark:text-gray-300 text-xs font-medium"
-                      >
-                        <Award className="w-3 h-3 text-zinc-400" />
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </CardBody>
-
-              <div className="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 flex justify-between items-center rounded-b-xl">
-                <span className="text-xs text-gray-600">Available for mentorship</span>
-                <Button
-                  variant={sentRequests[alumnus.$id] === 'sent' ? 'secondary' : 'primary'}
-                  size="sm"
-                  onClick={() => handleConnect(alumnus.$id)}
-                  isDisabled={sentRequests[alumnus.$id] === 'sent' || sentRequests[alumnus.$id] === 'sending'}
-                  icon={sentRequests[alumnus.$id] === 'sent' ? Check : MessageSquare}
-                >
-                  {sentRequests[alumnus.$id] === 'sending' && 'Connecting...'}
-                  {sentRequests[alumnus.$id] === 'sent' && 'Request Sent'}
-                  {!sentRequests[alumnus.$id] && 'Connect'}
-                </Button>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
           ))}
         </div>
       ) : (
-        <div className="glass-card text-center p-12 rounded-xl border border-zinc-200 dark:border-zinc-800">
-          <p className="text-gray-700 dark:text-gray-300">No alumni matching your search parameters were found.</p>
+        <div className="text-center p-14 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <Users className="w-10 h-10 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+          <p className="text-slate-500 font-semibold">No alumni matching your search parameters were found.</p>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

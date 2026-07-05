@@ -4,27 +4,26 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AlumniConnect - Empowering Alumni & Student Networks</title>
-    <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+    <title>AlumniConnect — Empowering Alumni &amp; Student Networks</title>
+    <meta name="description" content="AlumniConnect is a premium networking platform connecting students with alumni for mentorship, career advice, and curated opportunities powered by Gemini AI." />
+    <!-- Google Fonts: Outfit (Display) + Inter (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-      /* Initial loader styling before React mounts */
+      /* Initial loader — matches the soft light-mode background */
       html, body {
         margin: 0;
         padding: 0;
         width: 100%;
         min-height: 100%;
-        background-color: #09090b; /* Zinc 950 */
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        color: #f4f4f5;
-        overflow-y: auto; /* never block page scrolling */
-      }
-      #root {
-        min-height: 100%;
+        background-color: #F6F7FB;
+        font-family: 'Inter', sans-serif;
+        color: #0f172a;
         overflow-y: auto;
       }
+      #root { min-height: 100%; overflow-y: auto; }
+
       .initial-loader {
         display: flex;
         flex-direction: column;
@@ -33,31 +32,30 @@
         width: 100vw;
         height: 100vh;
         gap: 1.5rem;
+        background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f5f3ff 100%);
       }
       .loader-logo {
         font-family: 'Outfit', sans-serif;
-        font-size: 2.25rem;
+        font-size: 2rem;
         font-weight: 800;
-        background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+        background: linear-gradient(135deg, #7c3aed 0%, #6366f1 50%, #ec4899 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        letter-spacing: -0.05em;
-        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        letter-spacing: -0.04em;
+        animation: logo-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
       }
       .spinner {
-        width: 40px;
-        height: 40px;
-        border: 3px solid rgba(99, 102, 241, 0.1);
+        width: 36px;
+        height: 36px;
+        border: 2.5px solid rgba(124, 58, 237, 0.12);
         border-radius: 50%;
-        border-top-color: #6366f1;
-        animation: spin 1s ease-in-out infinite;
+        border-top-color: #7c3aed;
+        animation: spin 0.9s ease-in-out infinite;
       }
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
-      @keyframes pulse {
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @keyframes logo-pulse {
         0%, 100% { opacity: 1; }
-        50% { opacity: .5; }
+        50% { opacity: 0.55; }
       }
     </style>
   </head>

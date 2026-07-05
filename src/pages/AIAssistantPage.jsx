@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import aiService from '../services/aiService';
 import Card, { CardBody, CardHeader } from '../components/common/Card';
-import Input from '../components/common/Input';
 import Button from '../components/common/Button';
-import { Sparkles, Send, FileText, MessageSquare, AlertCircle, ArrowRight } from 'lucide-react';
+import { Sparkles, Send, FileText, MessageSquare, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const AIAssistantPage = () => {
   const [activeMode, setActiveMode] = useState('chat'); // 'chat' or 'resume'
@@ -11,7 +11,7 @@ export const AIAssistantPage = () => {
   // Chat State
   const [message, setMessage] = useState('');
   const [chatLog, setChatLog] = useState([
-    { sender: 'assistant', text: "Hello! I am your Gemini Career Assistant. I can help you prepare for technical interviews, drafts cold outreach letters, or give structural suggestions for your resume. What can I do for you today?" }
+    { sender: 'assistant', text: "Hello! I am your Gemini Career Assistant. I can help you prepare for technical interviews, draft cold outreach letters, or give structural suggestions for your resume. What can I do for you today?" }
   ]);
   const [chatLoading, setChatLoading] = useState(false);
 
@@ -90,57 +90,64 @@ export const AIAssistantPage = () => {
     }
   };
 
+  const tabClass = (mode) =>
+    `flex items-center gap-2 px-6 py-3 border-b-2 text-sm font-semibold transition-all duration-150 cursor-pointer ${
+      activeMode === mode
+        ? 'border-violet-600 text-violet-700 dark:border-violet-400 dark:text-violet-400'
+        : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-white'
+    }`;
+
   return (
-    <div className="space-y-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="space-y-8"
+    >
+      {/* Page Header */}
       <div>
-        <h2 className="text-3xl font-bold tracking-tight font-display mb-1 text-slate-900">AI Career Advisor</h2>
-        <p className="text-gray-700 dark:text-gray-300">Connect with Gemini-powered intelligence to optimize your career path and network impact.</p>
+        <h2 className="text-3xl font-bold tracking-tight font-display mb-1 text-slate-900 dark:text-white flex items-center gap-2">
+          <Sparkles className="w-7 h-7 text-violet-600" />
+          AI Career Advisor
+        </h2>
+        <p className="text-slate-500 font-medium">Connect with Gemini-powered intelligence to optimize your career path and network impact.</p>
       </div>
 
-      {/* Mode Switches */}
-      <div className="flex border-b border-zinc-200 dark:border-zinc-800">
-        <button
-          onClick={() => setActiveMode('chat')}
-          className={`flex items-center gap-2 px-6 py-3 border-b-2 text-sm font-semibold transition-all cursor-pointer ${
-            activeMode === 'chat'
-              ? 'border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 font-bold'
-              : 'border-transparent text-zinc-500 hover:text-zinc-950 dark:hover:text-white'
-          }`}
-        >
+      {/* Mode Tabs */}
+      <div className="flex border-b border-slate-200 dark:border-slate-800">
+        <button onClick={() => setActiveMode('chat')} className={tabClass('chat')}>
           <MessageSquare className="w-4 h-4" />
           Interactive Coach Chat
         </button>
-        <button
-          onClick={() => setActiveMode('resume')}
-          className={`flex items-center gap-2 px-6 py-3 border-b-2 text-sm font-semibold transition-all cursor-pointer ${
-            activeMode === 'resume'
-              ? 'border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 font-bold'
-              : 'border-transparent text-zinc-500 hover:text-zinc-950 dark:hover:text-white'
-          }`}
-        >
+        <button onClick={() => setActiveMode('resume')} className={tabClass('resume')}>
           <FileText className="w-4 h-4" />
           Resume Optimizer
         </button>
       </div>
 
-      {/* Chat Workspace */}
+      {/* ── Chat Workspace ── */}
       {activeMode === 'chat' && (
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
           {/* Main Chat Panel */}
-          <div className="lg:col-span-3 space-y-4">
-            <Card className="border border-zinc-200 dark:border-zinc-800 flex flex-col h-125">
-              {/* Message Display Area */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-4 max-h-125">
+          <div className="lg:col-span-3">
+            <Card className="flex flex-col" style={{ height: '500px' }}>
+              {/* Messages area */}
+              <div className="flex-1 overflow-y-auto p-6 space-y-4">
                 {chatLog.map((chat, index) => (
                   <div
                     key={index}
                     className={`flex ${chat.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
+                    {chat.sender === 'assistant' && (
+                      <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-600 flex items-center justify-center shrink-0 mr-2 mt-1">
+                        <Sparkles className="w-3.5 h-3.5 text-white" />
+                      </div>
+                    )}
                     <div
-                      className={`max-w-[80%] rounded-2xl p-4 text-sm leading-relaxed wrap-break-word ${
+                      className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                         chat.sender === 'user'
-                          ? 'bg-indigo-600 text-white rounded-tr-none'
-                          : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 rounded-tl-none border border-zinc-200/50 dark:border-zinc-800/50'
+                          ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-tr-none shadow-md shadow-violet-500/20'
+                          : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-tl-none border border-slate-200/60 dark:border-slate-700/60'
                       }`}
                     >
                       <p className="whitespace-pre-wrap">{chat.text}</p>
@@ -148,22 +155,25 @@ export const AIAssistantPage = () => {
                   </div>
                 ))}
                 {chatLoading && (
-                  <div className="flex justify-start">
-                    <div className="bg-zinc-100 dark:bg-zinc-800 rounded-2xl rounded-tl-none p-4 border border-zinc-200/50 dark:border-zinc-800/50 flex gap-1 items-center">
-                      <div className="w-2 h-2 rounded-full bg-zinc-400 animate-bounce" />
-                      <div className="w-2 h-2 rounded-full bg-zinc-400 animate-bounce [animation-delay:0.2s]" />
-                      <div className="w-2 h-2 rounded-full bg-zinc-400 animate-bounce [animation-delay:0.4s]" />
+                  <div className="flex justify-start items-end gap-2">
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-600 flex items-center justify-center shrink-0">
+                      <Sparkles className="w-3.5 h-3.5 text-white" />
+                    </div>
+                    <div className="bg-slate-100 dark:bg-slate-800 rounded-2xl rounded-tl-none px-4 py-3 border border-slate-200/60 dark:border-slate-700/60 flex gap-1 items-center">
+                      {[0, 0.2, 0.4].map((d, i) => (
+                        <div key={i} className="w-2 h-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: `${d}s` }} />
+                      ))}
                     </div>
                   </div>
                 )}
               </div>
 
-              {/* Chat Input Area */}
-              <div className="p-4 border-t border-zinc-200/70 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/10 rounded-b-xl flex gap-3">
+              {/* Input area */}
+              <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 rounded-b-2xl flex gap-3">
                 <input
                   type="text"
                   placeholder="Ask anything (e.g. mock interview, networking suggestions)..."
-                  className="flex-1 rounded-lg border border-zinc-200 dark:border-zinc-800 text-sm px-4 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                  className="flex-1 rounded-xl border border-slate-200 dark:border-slate-700 text-sm px-4 py-2.5 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500/15 focus:border-violet-500 dark:focus:border-violet-400 transition-all"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
@@ -175,18 +185,18 @@ export const AIAssistantPage = () => {
             </Card>
           </div>
 
-          {/* Templates/Quick Actions Sidebar */}
+          {/* Quick Suggestions Sidebar */}
           <div className="lg:col-span-1 space-y-4">
-            <h4 className="font-bold text-sm text-gray-500 uppercase tracking-wider">Quick Suggestions</h4>
+            <h4 className="font-bold text-xs text-slate-500 uppercase tracking-wider">Quick Suggestions</h4>
             <div className="flex flex-col gap-3">
               {promptTemplates.map((tmpl, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleSendMessage(tmpl)}
-                  className="w-full text-left p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-xs text-gray-700 dark:text-gray-300 font-medium transition-all shadow-sm flex items-center justify-between group cursor-pointer"
+                  className="w-full text-left p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-violet-50 dark:hover:bg-violet-950/20 hover:border-violet-200 dark:hover:border-violet-900/40 text-xs text-slate-600 dark:text-slate-400 font-medium transition-all shadow-sm flex items-center justify-between gap-2 group cursor-pointer"
                 >
                   <span className="line-clamp-2 leading-relaxed">{tmpl}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:translate-x-0.5 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-violet-500 group-hover:translate-x-0.5 transition-all shrink-0" />
                 </button>
               ))}
             </div>
@@ -194,21 +204,21 @@ export const AIAssistantPage = () => {
         </div>
       )}
 
-      {/* Resume Analyzer Workspace */}
+      {/* ── Resume Analyzer Workspace ── */}
       {activeMode === 'resume' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           {/* Input Panel */}
-          <Card className="border border-zinc-200 dark:border-zinc-800">
+          <Card>
             <CardHeader>
-              <h3 className="font-bold text-lg font-display flex items-center gap-2">
-                <FileText className="w-5 h-5 text-indigo-500" />
-                ATS Parser & Optimization
+              <h3 className="font-bold text-base font-display flex items-center gap-2 text-slate-900 dark:text-white">
+                <FileText className="w-4.5 h-4.5 text-violet-500" />
+                ATS Parser &amp; Optimization
               </h3>
             </CardHeader>
             <form onSubmit={handleResumeReview}>
               <CardBody className="space-y-4">
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="resume" className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                  <label htmlFor="resume" className="text-xs font-semibold text-slate-600 dark:text-slate-400 tracking-wide">
                     Paste Resume Content
                   </label>
                   <textarea
@@ -216,14 +226,14 @@ export const AIAssistantPage = () => {
                     rows={6}
                     placeholder="Paste the text from your resume (education, work experience, skills)..."
                     required
-                    className="block w-full rounded-lg border border-zinc-200 dark:border-zinc-800 text-sm p-3 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                    className="block w-full rounded-xl border border-slate-200 dark:border-slate-700 text-sm p-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500/15 focus:border-violet-500 dark:focus:border-violet-400 transition-all font-medium leading-relaxed"
                     value={resumeText}
                     onChange={(e) => setResumeText(e.target.value)}
                   />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="job-desc" className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                  <label htmlFor="job-desc" className="text-xs font-semibold text-slate-600 dark:text-slate-400 tracking-wide">
                     Paste Job Description
                   </label>
                   <textarea
@@ -231,13 +241,13 @@ export const AIAssistantPage = () => {
                     rows={4}
                     placeholder="Paste the description of the role you are applying for..."
                     required
-                    className="block w-full rounded-lg border border-zinc-200 dark:border-zinc-800 text-sm p-3 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                    className="block w-full rounded-xl border border-slate-200 dark:border-slate-700 text-sm p-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500/15 focus:border-violet-500 dark:focus:border-violet-400 transition-all font-medium leading-relaxed"
                     value={jobDescription}
                     onChange={(e) => setJobDescription(e.target.value)}
                   />
                 </div>
               </CardBody>
-              <div className="px-6 py-4 border-t border-zinc-150 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-b-xl flex justify-end">
+              <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 rounded-b-2xl flex justify-end">
                 <Button type="submit" variant="primary" isLoading={reviewLoading} icon={Sparkles}>
                   Analyze Resume
                 </Button>
@@ -245,32 +255,32 @@ export const AIAssistantPage = () => {
             </form>
           </Card>
 
-          {/* Feedback Output Panel */}
-          <Card className="border border-zinc-200 dark:border-zinc-800 min-h-100">
+          {/* Feedback Panel */}
+          <Card className="min-h-96">
             <CardHeader>
-              <h3 className="font-bold text-lg font-display">Advisor Feedback Report</h3>
+              <h3 className="font-bold text-base font-display text-slate-900 dark:text-white">Advisor Feedback Report</h3>
             </CardHeader>
-            <CardBody className="p-6">
+            <CardBody>
               {reviewLoading ? (
                 <div className="flex flex-col items-center justify-center py-20 space-y-4">
-                  <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Gemini is auditing keywords and matching scores...</p>
+                  <div className="w-8 h-8 border-2 border-violet-600 border-t-transparent rounded-full animate-spin"></div>
+                  <p className="text-sm text-slate-500 font-medium">Gemini is auditing keywords and matching scores...</p>
                 </div>
               ) : resumeFeedback ? (
-                <div className="prose prose-sm dark:prose-invert max-w-none text-sm text-zinc-700 dark:text-zinc-300 space-y-4 whitespace-pre-wrap wrap-break-word leading-relaxed">
+                <div className="prose prose-sm dark:prose-invert max-w-none text-sm text-slate-700 dark:text-slate-300 space-y-4 whitespace-pre-wrap leading-relaxed">
                   {resumeFeedback}
                 </div>
               ) : (
-                <div className="flex flex-col items-center justify-center py-20 text-center space-y-2 border-2 border-dashed border-zinc-200 dark:border-zinc-800/80 rounded-xl text-gray-600 dark:text-gray-300">
-                  <FileText className="w-10 h-10 text-zinc-300 dark:text-zinc-700" />
-                  <p className="text-sm">Submit your resume and target description to get an immediate feedback analysis.</p>
+                <div className="flex flex-col items-center justify-center py-20 text-center space-y-3 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
+                  <FileText className="w-10 h-10 text-slate-300 dark:text-slate-700" />
+                  <p className="text-sm text-slate-500 font-medium">Submit your resume and target description to get an immediate feedback analysis.</p>
                 </div>
               )}
             </CardBody>
           </Card>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

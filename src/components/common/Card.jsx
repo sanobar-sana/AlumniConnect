@@ -13,11 +13,12 @@ export const Card = ({
     <div
       onClick={onClick}
       className={cn(
-        'rounded-xl border transition-all duration-350',
+        'rounded-2xl border transition-all duration-300',
         isGlass
-          ? 'glass-card border-zinc-200/40 dark:border-zinc-800/40'
-          : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800',
-        isHoverable && 'hover:-translate-y-1 hover:shadow-lg dark:hover:shadow-zinc-950/50 hover:border-zinc-300 dark:hover:border-zinc-700 cursor-pointer',
+          ? 'glass-card border-white/30 dark:border-slate-700/40'
+          : 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-slate-800 shadow-sm',
+        isHoverable &&
+          'hover:-translate-y-1 hover:shadow-md dark:hover:shadow-slate-950/50 hover:border-slate-300 dark:hover:border-slate-700 cursor-pointer',
         className
       )}
       {...props}
@@ -28,7 +29,13 @@ export const Card = ({
 };
 
 export const CardHeader = ({ children, className = '', ...props }) => (
-  <div className={cn('px-6 py-4 border-b border-zinc-150 dark:border-zinc-800/60', className)} {...props}>
+  <div
+    className={cn(
+      'px-6 py-4 border-b border-slate-100 dark:border-slate-800/60',
+      className
+    )}
+    {...props}
+  >
     {children}
   </div>
 );
@@ -40,7 +47,13 @@ export const CardBody = ({ children, className = '', ...props }) => (
 );
 
 export const CardFooter = ({ children, className = '', ...props }) => (
-  <div className={cn('px-6 py-4 border-t border-zinc-150 dark:border-zinc-800/60 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-b-xl', className)} {...props}>
+  <div
+    className={cn(
+      'px-6 py-4 border-t border-slate-100 dark:border-slate-800/60 bg-slate-50/60 dark:bg-slate-900/50 rounded-b-2xl',
+      className
+    )}
+    {...props}
+  >
     {children}
   </div>
 );

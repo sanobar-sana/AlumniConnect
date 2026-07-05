@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @theme {
+  /* ── Typography ─────────────────────────────────────────────────────────── */
   --font-display: "Outfit", sans-serif;
-  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-sans: "Inter", sans-serif;
 
-  /* Custom Color System for AlumniConnect */
-  --color-brand-50: #f5f3ff;
+  /* ── Brand Color Scale (violet primary) ─────────────────────────────────── */
+  --color-brand-50:  #f5f3ff;
   --color-brand-100: #ede9fe;
   --color-brand-200: #ddd6fe;
   --color-brand-300: #c4b5fd;
@@ -16,24 +17,19 @@
   --color-brand-800: #5b21b6;
   --color-brand-900: #4c1d95;
 
-  --color-dark-50: #fafafa;
-  --color-dark-100: #f4f4f5;
-  --color-dark-200: #e4e4e7;
-  --color-dark-300: #d4d4d8;
-  --color-dark-400: #a1a1aa;
-  --color-dark-500: #71717a;
-  --color-dark-600: #52525b;
-  --color-dark-700: #3f3f46;
-  --color-dark-800: #27272a;
-  --color-dark-900: #18181b;
-  --color-dark-950: #09090b;
+  /* ── Slate gap-fill steps ────────────────────────────────────────────────── */
+  --color-slate-105: #f4f5f7;
+  --color-slate-150: #eaedf1;
+  --color-slate-350: #94a3b8;
+  --color-slate-450: #64748b;
+  --color-slate-550: #4b5563;
+  --color-slate-605: #374151;
+  --color-slate-650: #334155;
+  --color-slate-750: #1f2937;
+  --color-slate-850: #111827;
+  --color-slate-905: #0d1117;
 
-  /* ─── Zinc gap-fill steps ───────────────────────────────────────────────────
-     Standard Tailwind zinc scale: 50 100 200 300 400 500 600 700 800 900 950
-     The codebase also references 105 150 350 450 550 555 650 750 850 which
-     have no built-in CSS output. Defining them here makes every component
-     that uses those classes render correctly without touching any JSX file.
-  ──────────────────────────────────────────────────────────────────────────── */
+  /* ── Zinc gap-fill steps ─────────────────────────────────────────────────── */
   --color-zinc-105: #f1f1f2;
   --color-zinc-150: #ebebec;
   --color-zinc-350: #b4b4bc;
@@ -44,83 +40,102 @@
   --color-zinc-750: #333340;
   --color-zinc-850: #1d1d21;
 
-  /* Rose gap-fill steps */
+  /* ── Violet gap-fill ─────────────────────────────────────────────────────── */
+  --color-violet-650: #6d28d9;
+
+  /* ── Indigo gap-fill ─────────────────────────────────────────────────────── */
+  --color-indigo-350: #8d8ef5;
+  --color-indigo-450: #5758e5;
+  --color-indigo-550: #3a3bbf;
+  --color-indigo-650: #3d4fd6;
+
+  /* ── Rose gap-fill ───────────────────────────────────────────────────────── */
   --color-rose-350: #fb8c9f;
   --color-rose-450: #e84c6e;
   --color-rose-550: #c92c4f;
   --color-rose-605: #d41d3e;
   --color-rose-650: #c9183e;
 
-  /* Indigo gap-fill steps */
-  --color-indigo-350: #8d8ef5;
-  --color-indigo-450: #5758e5;
-  --color-indigo-550: #3a3bbf;
-  --color-indigo-650: #3d4fd6;
+  /* ── Pink gap-fill ───────────────────────────────────────────────────────── */
+  --color-pink-405: #e879a3;
+  --color-pink-450: #ec4899;
+  --color-pink-605: #db2777;
+  --color-pink-650: #be185d;
 
+  /* ── Amber gap-fill ──────────────────────────────────────────────────────── */
+  --color-amber-405: #f59e0b;
+  --color-amber-550: #d97706;
+  --color-amber-650: #b45309;
+  --color-amber-750: #92400e;
 
-  /* Glassmorphism settings */
-  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-  --shadow-glass-dark: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  /* ── Emerald gap-fill ────────────────────────────────────────────────────── */
+  --color-emerald-405: #10b981;
+  --color-emerald-550: #059669;
+  --color-emerald-650: #047857;
+
+  /* ── Glassmorphism shadows ───────────────────────────────────────────────── */
+  --shadow-glass:      0 8px 32px 0 rgba(31, 38, 135, 0.06);
+  --shadow-glass-dark: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
 }
 
-/* Custom Base Styles */
+/* ─── Base Layer ─────────────────────────────────────────────────────────── */
 @layer base {
   html {
     scroll-behavior: smooth;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     min-height: 100%;
-    overflow-y: auto; /* ensure scrolling is always enabled globally */
+    overflow-y: auto;
   }
 
   body {
-    @apply bg-zinc-50 text-gray-900 transition-colors duration-300 dark:bg-zinc-950 dark:text-gray-50;
+    @apply bg-[#F9FAFC] text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-50;
     font-family: var(--font-sans);
     min-height: 100%;
     overflow-y: auto;
   }
 
-  /* Ensure #root never clips content */
   #root {
     min-height: 100%;
     overflow-y: auto;
+    background: transparent;
   }
 
-  /* Custom scrollbars */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
+  /* Thin, elegant scrollbars */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { @apply bg-transparent; }
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-zinc-300 dark:bg-zinc-800 hover:bg-zinc-400 dark:hover:bg-zinc-700;
+    @apply rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700;
   }
 }
 
-/* Custom Utility Classes */
+/* ─── Utility Layer ──────────────────────────────────────────────────────── */
 @layer utilities {
+  /* Glass card */
   .glass-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: var(--shadow-glass);
   }
-
   .dark .glass-card {
-    background: rgba(18, 18, 24, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow: var(--shadow-glass-dark);
   }
 
+  /* Gradient text helpers */
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-linear-to-r from-violet-600 via-indigo-600 to-pink-600 dark:from-violet-400 dark:via-indigo-400 dark:to-pink-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-indigo-600 to-pink-500 dark:from-violet-400 dark:via-indigo-400 dark:to-pink-400;
+  }
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-yellow-400 to-orange-500;
   }
 
-  .text-gradient-gold {
-    @apply bg-clip-text text-transparent bg-linear-to-r from-amber-500 via-yellow-400 to-orange-500;
+  /* Page-level soft background gradient */
+  .page-bg {
+    @apply bg-gradient-to-br from-slate-50 via-white to-violet-50/60 dark:from-slate-950 dark:via-slate-900 dark:to-violet-950/10;
   }
 }
